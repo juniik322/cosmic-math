@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0b26">
+<title>Космическая таблица умножения</title>
+<link rel="preload" href="/fonts/nunito-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<!-- Декоративная сцена: звёзды, луна, парящие острова и туманность -->
+<div class="scene" aria-hidden="true">
+  <canvas id="sky"></canvas>
+
+  <div class="layer moon" data-depth="8">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <radialGradient id="moonG" cx="38%" cy="35%" r="70%">
+          <stop offset="0" stop-color="#ffffff"/>
+          <stop offset=".6" stop-color="#d9f3ff"/>
+          <stop offset="1" stop-color="#9fd2f0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="50" cy="50" r="48" fill="url(#moonG)"/>
+      <circle cx="34" cy="40" r="7" fill="#b9e2f7" opacity=".7"/>
+      <circle cx="62" cy="62" r="10" fill="#b9e2f7" opacity=".55"/>
+      <circle cx="66" cy="32" r="4" fill="#b9e2f7" opacity=".6"/>
+      <circle cx="40" cy="70" r="3.5" fill="#b9e2f7" opacity=".6"/>
+    </svg>
+  </div>
+
+  <div class="layer ringed" data-depth="14">
+    <div class="float slow">
+      <svg viewBox="0 0 120 80" width="100%">
+        <defs>
+          <linearGradient id="ringP" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffb3e6"/>
+            <stop offset="1" stop-color="#8f5bff"/>
+          </linearGradient>
+        </defs>
+        <ellipse cx="60" cy="42" rx="56" ry="12" fill="none" stroke="#ffd6f3" stroke-width="3" opacity=".5" transform="rotate(-14 60 42)"/>
+        <circle cx="60" cy="40" r="24" fill="url(#ringP)"/>
+        <path d="M6 48 Q60 70 114 30" fill="none" stroke="#ffd6f3" stroke-width="3" opacity=".9" transform="rotate(-6 60 42)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="layer island island-left" data-depth="22">
+    <div class="float">
+      <svg viewBox="0 0 320 240">
+        <defs>
+          <linearGradient id="rock" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#5a3f8c"/>
+            <stop offset="1" stop-color="#2a1a52"/>
+          </linearGradient>
+          <linearGradient id="moss" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#a9ffe8"/>
+            <stop offset=".4" stop-color="#5ff0c8"/>
+            <stop offset="1" stop-color="#25c99c"/>
+          </linearGradient>
+          <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4"/>
+          </filter>
+        </defs>
+        <path d="M14 70 Q8 110 52 132 Q84 178 140 206 Q170 222 196 200 Q246 166 282 124 Q318 96 306 70 Z" fill="url(#rock)"/>
+        <g fill="#3b2768">
+          <ellipse cx="70" cy="104" rx="22" ry="13"/>
+          <ellipse cx="128" cy="140" rx="26" ry="15"/>
+          <ellipse cx="196" cy="118" rx="24" ry="14"/>
+          <ellipse cx="160" cy="184" rx="16" ry="10"/>
+          <ellipse cx="250" cy="98" rx="18" ry="11"/>
+        </g>
+        <g fill="#7356b0" opacity=".7">
+          <ellipse cx="104" cy="96" rx="10" ry="6"/>
+          <ellipse cx="226" cy="146" rx="12" ry="7"/>
+          <ellipse cx="160" cy="104" rx="9" ry="5"/>
+        </g>
+        <path d="M0 68 Q4 40 38 46 Q60 28 98 40 Q130 24 168 38 Q204 26 238 40 Q276 30 300 46 Q326 56 316 76 Q300 90 280 80 Q266 96 248 82 Q226 94 206 82 Q184 96 164 82 Q140 94 120 82 Q98 96 78 82 Q54 94 36 80 Q10 90 0 68 Z" fill="url(#moss)"/>
+        <path d="M24 52 Q60 38 100 46 Q140 34 180 44" fill="none" stroke="#e7fff8" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+        <g fill="none" stroke="#2fd6a8" stroke-width="3" stroke-linecap="round">
+          <path d="M60 84 Q56 120 66 150 Q70 166 62 178"/>
+          <path d="M150 86 Q156 120 146 150"/>
+          <path d="M262 82 Q268 112 258 136 Q252 150 260 162"/>
+        </g>
+        <g fill="#5ff0c8">
+          <circle cx="62" cy="178" r="4"/>
+          <circle cx="146" cy="150" r="4"/>
+          <circle cx="260" cy="162" r="4"/>
+        </g>
+        <g>
+          <polygon points="212,40 224,6 236,40" fill="#ff8fd8" opacity=".6" filter="url(#soft)"/>
+          <polygon points="212,40 224,6 236,40" fill="#ff9be0"/>
+          <polygon points="224,6 236,40 224,40" fill="#d65fb5"/>
+          <polygon points="232,42 242,18 252,42" fill="#b79bff"/>
+          <polygon points="242,18 252,42 242,42" fill="#8a6af0"/>
+        </g>
+        <g class="glows">
+          <circle class="glow-dot" cx="90" cy="30" r="3" fill="#fff6b0"/>
+          <circle class="glow-dot" cx="130" cy="20" r="2.5" fill="#fff6b0"/>
+          <circle class="glow-dot" cx="180" cy="26" r="2" fill="#fff6b0"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="layer island island-right" data-depth="30">
+    <div class="float fast">
+      <svg viewBox="0 0 300 260">
+        <path d="M18 92 Q12 130 56 154 Q96 210 150 236 Q178 248 200 226 Q250 186 276 140 Q300 112 286 92 Z" fill="url(#rock)"/>
+        <g fill="#3b2768">
+          <ellipse cx="80" cy="128" rx="20" ry="12"/>
+          <ellipse cx="150" cy="170" rx="24" ry="14"/>
+          <ellipse cx="220" cy="130" rx="20" ry="12"/>
+        </g>
+        <path d="M4 92 Q10 64 44 70 Q74 54 110 64 Q150 50 190 62 Q232 52 262 66 Q300 74 294 98 Q276 112 256 102 Q236 116 216 104 Q192 116 170 104 Q146 116 124 104 Q100 116 80 104 Q54 116 34 102 Q10 110 4 92 Z" fill="url(#moss)"/>
+        <g fill="none" stroke="#2fd6a8" stroke-width="3" stroke-linecap="round">
+          <path d="M90 106 Q84 140 96 170"/>
+          <path d="M204 104 Q212 136 200 160 Q194 174 202 188"/>
+        </g>
+        <!-- маленькая обсерватория -->
+        <g transform="translate(120 4)">
+          <rect x="10" y="40" width="52" height="24" rx="4" fill="#e9e4ff"/>
+          <rect x="10" y="58" width="52" height="6" fill="#c3b8f2"/>
+          <path d="M8 42 A28 28 0 0 1 64 42 Z" fill="#ffffff"/>
+          <rect x="34" y="14" width="6" height="22" rx="3" fill="#8f74ff" transform="rotate(30 37 36)"/>
+          <rect x="28" y="48" width="14" height="16" rx="7" fill="#2a1a52"/>
+          <circle class="glow-dot" cx="20" cy="50" r="3" fill="#ffd76a"/>
+          <circle class="glow-dot" cx="52" cy="50" r="3" fill="#5ff0c8"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="layer island island-small" data-depth="18">
+    <div class="float slow">
+      <svg viewBox="0 0 120 100">
+        <path d="M8 34 Q10 60 40 74 Q60 92 80 76 Q108 56 112 34 Z" fill="url(#rock)"/>
+        <path d="M2 34 Q8 18 30 22 Q56 12 82 20 Q108 14 118 32 Q106 44 90 38 Q72 46 56 38 Q38 46 22 38 Q8 44 2 34 Z" fill="url(#moss)"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="layer gem" data-depth="26">
+    <svg viewBox="0 0 40 52">
+      <polygon points="20,0 40,20 20,52 0,20" fill="#ffd76a"/>
+      <polygon points="20,0 40,20 20,24" fill="#fff1b8"/>
+      <polygon points="20,24 40,20 20,52" fill="#f0b23c"/>
+    </svg>
+  </div>
+
+  <div class="layer hills" data-depth="6">
+    <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="h1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#4b2a99"/>
+          <stop offset="1" stop-color="#22145a"/>
+        </linearGradient>
+        <linearGradient id="h2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2f1d74"/>
+          <stop offset="1" stop-color="#130c3a"/>
+        </linearGradient>
+        <linearGradient id="lake" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#5ff0c8" stop-opacity="0"/>
+          <stop offset=".5" stop-color="#7fd8ff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#ff8fd8" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M0 170 Q120 110 240 150 T480 130 Q600 90 720 140 T960 120 Q1100 80 1220 140 T1440 120 V320 H0 Z" fill="url(#h1)" opacity=".75"/>
+      <g fill="#ff8fd8" opacity=".75">
+        <rect x="300" y="128" width="5" height="22" rx="2"/>
+        <ellipse cx="302" cy="128" rx="14" ry="8"/>
+        <rect x="1080" y="104" width="4" height="20" rx="2"/>
+        <ellipse cx="1082" cy="104" rx="12" ry="7"/>
+      </g>
+      <g fill="#5ff0c8" opacity=".7">
+        <rect x="820" y="118" width="4" height="18" rx="2"/>
+        <ellipse cx="822" cy="118" rx="11" ry="6"/>
+      </g>
+      <path d="M0 230 Q160 180 320 220 T640 210 Q800 170 960 215 T1280 200 Q1380 190 1440 210 V320 H0 Z" fill="url(#h2)"/>
+      <rect x="380" y="252" width="680" height="6" rx="3" fill="url(#lake)"/>
+      <rect x="480" y="268" width="480" height="4" rx="2" fill="url(#lake)" opacity=".6"/>
+    </svg>
+  </div>
+
+  <div class="layer mist" data-depth="4">
+    <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
+      <g fill="#c9b8ff" opacity=".14">
+        <circle cx="60" cy="190" r="110"/>
+        <circle cx="260" cy="200" r="90"/>
+        <circle cx="440" cy="210" r="120"/>
+        <circle cx="700" cy="200" r="100"/>
+        <circle cx="940" cy="210" r="130"/>
+        <circle cx="1180" cy="196" r="100"/>
+        <circle cx="1390" cy="200" r="120"/>
+      </g>
+      <g fill="#ffc6ee" opacity=".1">
+        <circle cx="160" cy="220" r="90"/>
+        <circle cx="580" cy="230" r="90"/>
+        <circle cx="1060" cy="230" r="110"/>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <h1 class="brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs>
+          <linearGradient id="logoG" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5ff0c8"/>
+            <stop offset="1" stop-color="#8f74ff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="20" cy="20" r="13" fill="url(#logoG)"/>
+        <ellipse cx="20" cy="20" rx="19" ry="6" fill="none" stroke="#fff" stroke-width="2.4" transform="rotate(-24 20 20)"/>
+        <text x="20" y="25" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="800" font-size="13" fill="#0b2a2a">×</text>
+      </svg>
+      <span>Космическая таблица</span>
+    </h1>
+    <span class="star-pill" id="starsBox"><b>★</b><span id="stars"></span></span>
+  </header>
+  <main id="app"></main>
+  <p id="notice" role="status"></p>
+  <footer class="muted">✦ Решай примеры и исследуй галактику ✦</footer>
+</div>
+
+<script src="/js/app.js"></script>
+</body>
+</html>
